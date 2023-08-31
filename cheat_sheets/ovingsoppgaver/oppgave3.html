@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Utregning</title>
+</head>
+<body>
+    <p id="average"></p>
+
+    <script>
+        const far = 37
+        const mor = 32
+        const datter = 7
+        const sonn = 2
+
+        let totalAlder = far + mor + datter + sonn
+        let averageAlder = totalAlder / 4 
+
+        document.getElementById("average").innerHTML = averageAlder
+    </script> 
+</body>
+</html>
