@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontatinering cheat sheet</title>
+</head>
+<body>
+    <p id="mailStandard"></p>
+    <p id="mailTempLit"></p>
+    <script>
+        const name = "Adrian"
+        const mail = "adrian_mirek@yahoo.no"
+
+        //Standard konkatinering med plusstegn
+        const mailCodeStandard = "<a href='mailto:" + mail + "'>Send mail til " + name + "</a>"
+        document.getElementById("mailStandard").innerHTML = mailCodeStandard
+
+        //Template literals
+        const mailCodeTempLit = `<a href="mailto:${mail}">Send mail til ${name}</a>`
+        document.getElementById("mailTempLit").innerHTML = mailCodeTempLit    
+        </script>
+</body>
+</html>
