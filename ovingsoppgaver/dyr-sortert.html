@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dyr sortert</title>
+</head>
+<body>
+    <p>Antall dyr: <span id="antallDyr"></span>, <span id="dyr"></span></p>
+    <script>
+        const dyr = ["Hund", "Katt", "Elg", "Laks", "Okse", "Mus", "Ørn", "Sau",
+         "Ulv", "Rådyr"]
+
+        const antallDyr = dyr.length
+
+        dyr.push("Pigsvin", "Hamster")
+
+        dyr.sort()
+
+        document.getElementById("antallDyr").innerHTML = antallDyr
+        document.getElementById("dyr").innerHTML = dyr
+        console.log(dyr)
+    </script>
+</body>
+</html>
