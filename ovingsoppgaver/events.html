@@ -11,9 +11,32 @@
     </ul>
     <script>
         const events = [
-            year: 1969,
-            event: The creation of ARPANET
+            {
+                year: 1969,
+                event: "The creation of ARPANET"
+            },
+            {
+                year: 1971,
+                event: "The first email is sent"
+            },
+            {
+                year: 1981,
+                event: "IBM launches a PC"
+            },
+            {
+                year: 1990,
+                event: "Tim Berners Lee launches the first website"
+            },
+            {
+                year: 1998,
+                event: "Google was founded"
+            },
+
         ]
+
+        let eventListHTML = ""
+        events.map(element => eventListHTML += `<li>${element.year}: ${element.event}</li>` )
+        document.getElementById("events").innerHTML = eventListHTML
     </script>
 </body>
 </html>
