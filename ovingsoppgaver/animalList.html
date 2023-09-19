@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animal list</title>
+</head>
+<body>
+    <ul id="animals"></ul>
+    <script>
+        const animals = ["Hund", "Katt", "Elg", "Laks", "Okse", "Mus", "Ørn", "Sau",
+         "Ulv", "Rådyr"]
+        
+        let htmlString = ""
+
+        for(let counter = 0; counter < animals.length; counter++){
+            document.getElementById("animals").innerHTML += `<li>${animals[counter]}</li>`
+        }
+    </script>
+</body>
+</html>

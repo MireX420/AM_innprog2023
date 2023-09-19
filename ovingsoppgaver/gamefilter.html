@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game filter</title>
+</head>
+<body>
+    <h1>iOS games</h1>
+    <ul id="filter">
+
+    </ul>
+    <script>
+        const games = [
+            {
+                title: "Angry Birds",
+                platforms:  ["iOS", "Android"]
+            },
+            {
+                title: "Nongram",
+                platforms:  ["Android"]
+            },
+            {
+                title: "Plants vs Zombies",
+                platforms:  ["iOS", "Android", "Windows", "MacOS"]
+            },
+            {
+                title: "Punball",
+                platforms:  ["Android", "Windows"]
+            },
+            {
+                title: "Planet Zoo",
+                platforms:  ["Windows", "MacOS"]
+            },
+            {
+                title: "Woordle",
+                platforms:  ["iOS", "MacOS"]
+            }
+        ]
+
+        let iosGames = []
+
+        const gamesIOS = games.filter(game => game.platforms.includes("iOS"))
+       
+        gamesIOS.map(element => iosGames += `<li>${element.title}: ${element.platforms}</li>`)
+        document.getElementById("filter").innerHTML = iosGames
+
+        console.log(gamesIOS)
+        console.log(iosGames)
+        
+    </script>
+</body>
+</html>
