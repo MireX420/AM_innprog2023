@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas</title>
+    <style>
+        body {
+            width: 100vw;
+            height: 100vh;
+            background-color: #cccccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        canvas {
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="drawingArea"></canvas>
+
+    <script>
+        //Hente canvas elementet
+        const canvas = document.getElementById("drawingArea")
+        //Sette høyde og bredde på canvas:
+        canvas.width = 800
+        canvas.height = 600
+        //Sette context på canvas
+        const ctx = canvas.getContext("2d")
+
+        //Tegne en strek
+        ctx.beginPath()
+        ctx.moveTo(100,100)
+        ctx.lineTo(300, 300)
+        ctx.strokeStyle = "green"
+        ctx.lineWidth = 3
+        ctx.stroke()
+        ctx.closePath()
+
+        //Tegne firkanter
+        ctx.strokeRect(300,200,200,200)
+        ctx.strokeStyle = "red"
+        ctx.fillRect(350,250,100,100)
+
+        //Tegne sirkel
+        ctx.arc(150, 300, 50, 0, 2 * Math.PI)
+        ctx.fillStyle = "gold"
+        ctx.fill()
+        ctx.closePath()
+
+        //Tegne tekst
+        ctx.beginPath()
+        ctx.fillStyle = "black"
+        ctx.font = "60px Georgia"
+        ctx.fillText("10", 120 , 315)
+        ctx.closePath()
+        
+    </script>
+</body>
+</html>
