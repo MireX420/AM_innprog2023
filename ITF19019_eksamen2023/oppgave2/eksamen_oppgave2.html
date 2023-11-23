@@ -33,30 +33,52 @@
 
         //TODO: Storage of multiple element objects (Grade C and above)
         const elements = [
-            {type: "square", x: 23, y: 220},
-            {type: "circle", x: 381, y: 444}
+            
         ]
 
         //TODO: Function to add an element of parameter type 'square' or 'circle':
-        
+        function newElements(type, x, y){  //lager en funkjson som legger til en "ny rad" til elements listen, hvor jeg pusher inn type og posistionen       
+            elements.push({type, x, y})
+            counterUpdate()
+       }
 
         //TODO: Function to remove random element:
         
-
         //TODO: EventListeners to track user input:
-
+        document.getElementById("sbutton").addEventListener("click",() => newElements("square", Math.floor(Math.random() * canvas.width), Math.floor(Math.random() * canvas.height)))
+        document.getElementById("cbutton").addEventListener("click",() => newElements("circle", Math.floor(Math.random() * canvas.width), Math.floor(Math.random() * canvas.height)))
+        document.getElementById("rbutton").addEventListener("click",() => elements.splice( Math.floor(Math.random() * elements.length), 1))
+        document.getElementById("rbutton").addEventListener("click",() => counterUpdate())
 
         //TODO: Count the element types and total and print to interface
-
-        
+        function counterUpdate() {
+            const squareCount = elements.filter (square =>  square.type === "square").length
+            document.getElementById("squareCount").innerHTML = squareCount
+            const circleCount = elements.filter (circle =>  circle.type === "circle").length
+            document.getElementById("circleCount").innerHTML = circleCount
+            const totalCount = elements.length
+            document.getElementById("totalCount").innerHTML = totalCount
+        }
         //Function to draw on canvas:
+
+       
         function renderDrawings() {
             //Clear the rectangle
             ctx.clearRect(0, 0, canvas.width, canvas.height)
 
             //TODO: Draw the elements on canvas:
-
-
+            elements.forEach((element) => { //prøvde å bruke .map men ble stuck, og fant ut at jeg kan bruke foreach ved hjelp av chatgpt
+                if(element.type === "square"){
+                    ctx.fillStyle = "blue"
+                    ctx.fillRect(element.x, element.y, 8, 8)
+                }else if(element.type === "circle"){
+                    ctx.beginPath()
+                    ctx.arc(element.x, element.y, 13, 0, 2 * Math.PI)
+                    ctx.fillStyle = "gold"
+                    ctx.fill()
+                    ctx.closePath()
+                }          
+            })
             //Testprint:
             console.log("Currently drawing frames...")
             //Use requestAnimationFrame to re-run renderDrawings-function
@@ -64,6 +86,7 @@
         }
         //Start drawing
         renderDrawings()
+        
     </script>
 </body>
 </html>
