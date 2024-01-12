@@ -37,22 +37,72 @@
         <div id="memory">
             <p>Memory (<span id="memory-bank">0</span>)</p>
             <button id="memory-add" onclick="addMemory()">Add</button>
-            <button id="memory-browseback" disabled>Previous</button>
-            <button id="memory-browseforward" disabled>Next</button>
+            <button id="memory-browseback" onclick="previousMemory()">Previous</button>
+            <button id="memory-browseforward" onclick="nextMemory()">Next</button>
         </div>
     </article>
 
     <script>
+        const memoryBank = []
+        let memoryIndex = -1;
+        document.addEventListener("keydown", function(Event){
+            if(Event.key === "c"){
+            clearScreen()}
+        })
+        
+
+
         function display(val) { //Skrivefeil displey -> display
             document.getElementById("calculation").value += val //Skrivefeil calculatin -> calculation og getElementByID -> getElementById
             return val
         }
+
+        function addMemory(){
+            let memory = document.getElementById("calculation").value
+            memoryBank.push(memory)
+
+            memoryIndex = memoryBank.length - 1
+            document.getElementById("memory-bank").innerHTML = memoryIndex + 1
+            const prevBtn = document.getElementById("memory-browseback")
+            prevBtn.disabled = false
+        }
+        function previousMemory(){
+                memoryIndex--
+                document.getElementById("calculation").value = memoryBank[memoryIndex]
+
+                const prevBtn = document.getElementById("memory-browseback")
+                if(memoryIndex === 0){
+                    prevBtn.disabled = true
+                }else{
+                    prevBtn.disabled = false
+                }
+
+                const nextBtn = document.getElementById("memory-browseforward")
+                nextBtn.disabled = false
+        }
+        function nextMemory(){
+                memoryIndex++
+                document.getElementById("calculation").value = memoryBank[memoryIndex]
+
+                const nextBtn = document.getElementById("memory-browseforward")
+                if(memoryIndex === memoryBank.length - 1){
+                    nextBtn.disabled = true
+                }else{
+                    nextBtn.disabled = false
+                }
+
+                const prevBtn = document.getElementById("memory-browseback")
+                prevBtn.disabled = false
+              
+        }
+
         function solve() {
             let calculation = document.getElementById("calculation").value //Skrivefeil value() -> result value
             let result = eval(calculation)
             document.getElementById("calculation").value = result //Skrivefeil results -> result
             return result
         }
+        console.log(memoryBank)
         /*Solve funksjonen fungerer slik:
         1. Oppretter en let variabel for calculation som henter informasjonen (i dette tilfelle en value) fra calculation inputet i html koden
         2. Oppretter en let variabel for resultatet som bruker en eval innebygd funksjon som regner ut informasjoen fra calculation

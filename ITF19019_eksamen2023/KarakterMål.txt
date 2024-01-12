@@ -1,0 +1,16 @@
+oppgave 1:
+Jeg sikter på en A
+oppgave 2:
+Jeg sikter på en A
+oppgave 3:
+Jeg sikter på en B - A
+
+Kilder:
+https://stackoverflow.com/questions/10412883/span-with-onclick-event-inside-a-tag
+javascript put element in random place in canvas
+https://chat.openai.com/c/38e904eb-ebc7-4588-ac85-73c54f3243ee
+https://stackoverflow.com/questions/37187504/javascript-second-counter
+https://www.programiz.com/javascript/examples/get-random-item
+https://www.w3schools.com/jsref/jsref_foreach.asp
+https://codepen.io/reynnor/pen/vmNaeM
+https://alvarotrigo.com/blog/disable-button-javascript/

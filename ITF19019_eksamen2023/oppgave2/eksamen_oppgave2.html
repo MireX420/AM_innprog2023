@@ -19,6 +19,8 @@
                 <li>Circles: <span id="circleCount">0</span></li>
                 <li>Total: <span id="totalCount">0</span></li>
             </ul>
+            <h2>Activity:</h2> <!--Lagde en enkel h2-tag og p-tag for å legge til sekundteller-->
+            <p id="activity"></p>
         </nav>
         <canvas id="drawArea"></canvas>
     </main>
@@ -37,50 +39,81 @@
         ]
 
         //TODO: Function to add an element of parameter type 'square' or 'circle':
-        function newElements(type, x, y){  //lager en funkjson som legger til en "ny rad" til elements listen, hvor jeg pusher inn type og posistionen       
-            elements.push({type, x, y})
-            counterUpdate()
+        function newElements(type, x, y){  //lager en funkjson som legger til en "ny rad" til elements listen, hvor jeg pusher inn type og posisjonen. funksjonen tar inn 3 verider, type, x og y   
+            elements.push({type, x, y})  //push metoden legger til vediene inn i elements arrayen
+            counterUpdate() //kaller til  counterUpdate for at tellerne skal oppdatere seg
        }
 
         //TODO: Function to remove random element:
         
         //TODO: EventListeners to track user input:
-        document.getElementById("sbutton").addEventListener("click",() => newElements("square", Math.floor(Math.random() * canvas.width), Math.floor(Math.random() * canvas.height)))
+        //bruker eventlistner til å inpute type, x og y inn i newElements funksjon. S knappen gjør type til square og x og y verdiene er randomiserte ved bruk av math metoder
+        //randomiseringen er koded slik at den går fra 0 til "canvas width og height" altså vil et element aldri bli tegnet utenfor canvaset
+        document.getElementById("sbutton").addEventListener("click",() => newElements("square", Math.floor(Math.random() * canvas.width), Math.floor(Math.random() * canvas.height))) 
         document.getElementById("cbutton").addEventListener("click",() => newElements("circle", Math.floor(Math.random() * canvas.width), Math.floor(Math.random() * canvas.height)))
-        document.getElementById("rbutton").addEventListener("click",() => elements.splice( Math.floor(Math.random() * elements.length), 1))
-        document.getElementById("rbutton").addEventListener("click",() => counterUpdate())
+        document.getElementById("rbutton").addEventListener("click",() => {elements.splice( Math.floor(Math.random() * elements.length), 1)//splice til å kutte ut random objekt i arrayen
+            counterUpdate()//kaller til  counterUpdate for at tellerne skal oppdatere seg
+        }) 
+        
+
+        //Keyboard input:
+        //Dette er det samme som over, bare at her lytter jeg til tastatur trykk
+        document.addEventListener("keydown", function(Event) {
+            if(Event.key === "s"){
+                newElements("square", Math.floor(Math.random() * canvas.width), Math.floor(Math.random() * canvas.height)) 
+            }else if(Event.key === "c"){
+                newElements("circle", Math.floor(Math.random() * canvas.width), Math.floor(Math.random() * canvas.height))
+            }else if(Event.key === "r"){
+                elements.splice( Math.floor(Math.random() * elements.length), 1)
+            }
+            counterUpdate()
+        })
 
         //TODO: Count the element types and total and print to interface
+        //funksjon hvor jeg oppdater tellerne til elementene. jeg bruker filter metoden til å skille ut type i elements arrayen og deretter teller antall ved bruk av .length
+        //så bruker jeg .getElementById til å displaye det i html koden
         function counterUpdate() {
             const squareCount = elements.filter (square =>  square.type === "square").length
             document.getElementById("squareCount").innerHTML = squareCount
             const circleCount = elements.filter (circle =>  circle.type === "circle").length
             document.getElementById("circleCount").innerHTML = circleCount
-            const totalCount = elements.length
+            const totalCount = elements.length //her bare bruker jeg .length til å telle hele lengden på arrayen
             document.getElementById("totalCount").innerHTML = totalCount
         }
-        //Function to draw on canvas:
+        //Seconds counter:
+        //variable og funksjon som teller opp hvert sekund
+        let secondsCounter = 0
+        setInterval(setTime, 1000) //Jeg tok inspirasjon fra https://codepen.io/reynnor/pen/vmNaeM
 
+        function setTime(){
+            ++secondsCounter
+             //Element per seconds:
+             //her deler jeg bare lengden på arrayen med antall sekunder gått og får elementer per sekund
+             let avgElement = elements.length/secondsCounter
+             //bruker Template literals til å displaye alt ryddig i html 
+             document.getElementById("activity").innerHTML = `User has been active for ${secondsCounter} seconds, which is ${avgElement} element per second`
+        }
        
+
+        //Function to draw on canvas:
         function renderDrawings() {
             //Clear the rectangle
             ctx.clearRect(0, 0, canvas.width, canvas.height)
 
             //TODO: Draw the elements on canvas:
-            elements.forEach((element) => { //prøvde å bruke .map men ble stuck, og fant ut at jeg kan bruke foreach ved hjelp av chatgpt
+            //her vil koden gå gjennom hvert objekti arrayen og sjekke om det er en square eller circle, basert på det, vil det tegne en firekant eller sirkel
+            elements.forEach((element) => { //tenke å bruke .map, men fant ut gjennom https://www.w3schools.com/jsref/jsref_foreach.asp at forEach er hva jeg virkelig trenger
                 if(element.type === "square"){
                     ctx.fillStyle = "blue"
-                    ctx.fillRect(element.x, element.y, 8, 8)
+                    ctx.fillRect(element.x, element.y, 8, 8) //lager en 8x8 pixler firkant
                 }else if(element.type === "circle"){
                     ctx.beginPath()
-                    ctx.arc(element.x, element.y, 13, 0, 2 * Math.PI)
+                    ctx.arc(element.x, element.y, 13, 0, 2 * Math.PI) //lager en 13 pixler radius sirkel
                     ctx.fillStyle = "gold"
                     ctx.fill()
                     ctx.closePath()
                 }          
-            })
-            //Testprint:
-            console.log("Currently drawing frames...")
+            }) 
             //Use requestAnimationFrame to re-run renderDrawings-function
             requestAnimationFrame(renderDrawings)
         }
